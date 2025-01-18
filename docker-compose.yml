@@ -19,6 +19,7 @@ services:
     ports:
       - "5281:5000"
     environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}  # 預設 Development
       - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__DefaultConnection=Server=db;Database=LeeterviewDb;User=sa;Password=YourStrong@Password1;
 
