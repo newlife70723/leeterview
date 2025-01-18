@@ -1,0 +1,40 @@
+services:
+  # 前端（Next.js）
+  frontend:
+    build:
+      context: ./leeterview-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5000
+
+  # 後端（.NET Web API）
+  backend:
+    build:
+      context: ./leeterview-backend
+      dockerfile: Dockerfile
+    ports:
+      - "5281:5000"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Server=db;Database=LeeterviewDb;User=sa;Password=YourStrong@Password1;
+
+  # MSSQL 資料庫
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "YourStrong@Password1"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - db_data:/var/opt/mssql
+
+volumes:
+  db_data:
+
