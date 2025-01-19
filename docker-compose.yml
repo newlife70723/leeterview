@@ -10,6 +10,7 @@ services:
       - backend
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:5000
+      - NODE_ENV=${NODE_ENV}
 
   # 後端（.NET Web API）
   backend:
@@ -22,4 +23,5 @@ services:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}  # 預設 Development
       - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__DefaultConnection=Server=db;Database=LeeterviewDb;User=sa;Password=YourStrong@Password1;
+      - NODE_ENV=${NODE_ENV}
 
