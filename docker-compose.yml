@@ -20,6 +20,7 @@ services:
     ports:
       - "5151:5000"
     environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}  # 預設 Development
       - ASPNETCORE_URLS=http://+:5000
       - NODE_ENV=${NODE_ENV}
     env_file:
