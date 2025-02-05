@@ -4,25 +4,25 @@ services:
     build:
       context: ./leeterview-frontend
       dockerfile: Dockerfile
+    container_name: leeterview-frontend-${COMMIT_HASH}
+    env_file:
+    - ./leeterview-frontend/.env
+    image: leeterview-frontend:${COMMIT_HASH}
     ports:
-      - "3000:3000"
+    - "3000:3000"
     depends_on:
-      - backend
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:5000
-      - NODE_ENV=${NODE_ENV}
+    - backend
 
   # 後端（.NET Web API）
   backend:
     build:
       context: ./leeterview-backend
       dockerfile: Dockerfile
-    ports:
-      - "5151:5000"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}  # 預設 Development
-      - ASPNETCORE_URLS=http://+:5000
-      - NODE_ENV=${NODE_ENV}
+    container_name: leeterview-backend-${COMMIT_HASH}
     env_file:
-      - ./leeterview-backend/.env  # 引用根目錄中的 .env 檔案
+    - ./leeterview-backend/.env
+    image: leeterview-backend:${COMMIT_HASH}
+    ports:
+    - 5151:5000
+
 
